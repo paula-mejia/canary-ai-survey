@@ -1,0 +1,282 @@
+/*
+ * Canary Design System — colors + type
+ * Primary: Objektiv (web). Red Hat Display/Text for presentations only.
+ * Since Objektiv is Adobe-licensed and not web-available, we substitute Inter
+ * (closest geometric sans-serif with matching x-height and counter-shapes).
+ * TODO: replace Inter with a self-hosted Objektiv woff2 when license allows.
+ */
+
+/* Brand-uploaded Inter (variable) — self-hosted */
+@font-face {
+  font-family: 'Inter';
+  src: url('fonts/Inter-VariableFont_opsz_wght.ttf') format('truetype-variations'),
+       url('fonts/Inter-VariableFont_opsz_wght.ttf') format('truetype');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Inter';
+  src: url('fonts/Inter-Italic-VariableFont_opsz_wght.ttf') format('truetype-variations'),
+       url('fonts/Inter-Italic-VariableFont_opsz_wght.ttf') format('truetype');
+  font-weight: 100 900;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* Brand-uploaded Red Hat Display (variable) — self-hosted */
+@font-face {
+  font-family: 'Red Hat Display';
+  src: url('fonts/RedHatDisplay-VariableFont_wght.ttf') format('truetype-variations'),
+       url('fonts/RedHatDisplay-VariableFont_wght.ttf') format('truetype');
+  font-weight: 300 900;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Red Hat Display';
+  src: url('fonts/RedHatDisplay-Italic-VariableFont_wght.ttf') format('truetype-variations'),
+       url('fonts/RedHatDisplay-Italic-VariableFont_wght.ttf') format('truetype');
+  font-weight: 300 900;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* Brand-uploaded Red Hat Text (variable) — self-hosted */
+@font-face {
+  font-family: 'Red Hat Text';
+  src: url('fonts/RedHatText-VariableFont_wght.ttf') format('truetype-variations'),
+       url('fonts/RedHatText-VariableFont_wght.ttf') format('truetype');
+  font-weight: 300 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Red Hat Text';
+  src: url('fonts/RedHatText-Italic-VariableFont_wght.ttf') format('truetype-variations'),
+       url('fonts/RedHatText-Italic-VariableFont_wght.ttf') format('truetype');
+  font-weight: 300 700;
+  font-style: italic;
+  font-display: swap;
+}
+
+:root {
+  /* ===== BRAND PALETTE ===== */
+  --azul-canary: #001B4C;
+  --azul-medio:  #084893;
+  --azul-claro:  #008CFF;
+  --verde:       #B6E215;
+  --branco:      #FFFFFF;
+
+  /* Extended / utility */
+  --azul-canary-900: #000C28;
+  --azul-canary-800: #001134;
+  --azul-canary-700: #001640;
+  --azul-canary-600: #002766;
+  --azul-canary-100: #E6EAF0;
+  --azul-claro-dark: #0070CC;
+  --azul-claro-soft: #E8F4FE;
+  --verde-dark:      #A0C912;
+
+  /* Neutrals used sparingly on light surfaces */
+  --neutral-50:  #F5F7FA;
+  --neutral-100: #EDF0F5;
+  --neutral-200: #D9DEE8;
+  --neutral-500: #6B7794;
+  --neutral-700: #3B4660;
+
+  /* ===== SEMANTIC COLOR TOKENS ===== */
+  --bg:             var(--branco);
+  --bg-dark:        var(--azul-canary);
+  --bg-medium:      var(--azul-medio);
+  --bg-subtle:      var(--neutral-50);
+
+  --fg:             var(--azul-canary);       /* primary text on light */
+  --fg-muted:       var(--neutral-500);
+  --fg-on-dark:     var(--branco);
+  --fg-on-dark-muted: rgba(255,255,255,0.65);
+
+  --accent:         var(--azul-claro);        /* links, labels, interactive */
+  --accent-hover:   var(--azul-claro-dark);
+  --highlight:      var(--verde);             /* text highlights, dots */
+
+  --border:         rgba(0,27,76,0.10);
+  --border-strong:  rgba(0,27,76,0.20);
+  --border-on-dark: rgba(255,255,255,0.15);
+
+  /* ===== TYPOGRAPHY ===== */
+  /* Objektiv fallback: Inter mimics its proportions best */
+  --font-sans:    'Inter', 'Objektiv', 'Helvetica Neue', Arial, sans-serif;
+  --font-display: 'Red Hat Display', 'Inter', 'Helvetica Neue', Arial, sans-serif;
+  --font-text:    'Red Hat Text', 'Inter', 'Helvetica Neue', Arial, sans-serif;
+  --font-mono:    'JetBrains Mono', 'SF Mono', 'Fira Code', ui-monospace, monospace;
+
+  --weight-regular: 400;
+  --weight-medium:  500;
+  --weight-semibold: 600;
+  --weight-bold:    700;
+  --weight-black:   800;
+
+  /* Type scale (web / Objektiv system) */
+  --fs-display:   72px;
+  --fs-h1:        48px;
+  --fs-h2:        36px;
+  --fs-h3:        24px;
+  --fs-h4:        20px;
+  --fs-body:      16px;
+  --fs-body-sm:   14px;
+  --fs-caption:   12px;
+
+  --lh-display: 1.05;
+  --lh-h1:      1.10;
+  --lh-h2:      1.15;
+  --lh-h3:      1.25;
+  --lh-h4:      1.30;
+  --lh-body:    1.50;
+  --lh-caption: 1.40;
+
+  --tracking-tight:  -0.02em;
+  --tracking-snug:   -0.01em;
+  --tracking-normal: 0;
+  --tracking-wide:   0.02em;
+  --tracking-wider:  0.08em;    /* small caps / labels */
+  --tracking-widest: 0.14em;    /* CANARY wordmark feel */
+
+  /* ===== SPACING (8px grid) ===== */
+  --space-xs:  4px;
+  --space-sm:  8px;
+  --space-md:  16px;
+  --space-lg:  24px;
+  --space-xl:  32px;
+  --space-2xl: 48px;
+  --space-3xl: 64px;
+  --space-4xl: 96px;
+  --space-5xl: 128px;
+
+  /* ===== RADII ===== */
+  --radius-none: 0;
+  --radius-sm:   4px;
+  --radius-md:   8px;
+  --radius-lg:   12px;
+  --radius-xl:   16px;
+  --radius-pill: 999px;
+
+  /* ===== SHADOWS ===== */
+  /* All tinted with Azul Canary, not black */
+  --shadow-xs: 0 1px 2px rgba(0,27,76,0.06);
+  --shadow-sm: 0 1px 3px rgba(0,27,76,0.10), 0 1px 2px rgba(0,27,76,0.06);
+  --shadow-md: 0 4px 12px rgba(0,27,76,0.10);
+  --shadow-lg: 0 8px 24px rgba(0,27,76,0.14);
+  --shadow-xl: 0 16px 40px rgba(0,27,76,0.18);
+  --shadow-focus: 0 0 0 3px rgba(0,140,255,0.35);
+
+  /* ===== MOTION ===== */
+  --ease-out:    cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-fast:    150ms;
+  --dur-base:    220ms;
+  --dur-slow:    400ms;
+}
+
+/* ===== SEMANTIC TYPE CLASSES ===== */
+.t-display {
+  font-family: var(--font-sans);
+  font-size: var(--fs-display);
+  font-weight: var(--weight-bold);
+  line-height: var(--lh-display);
+  letter-spacing: var(--tracking-tight);
+  text-transform: uppercase;
+}
+.t-h1 {
+  font-family: var(--font-sans);
+  font-size: var(--fs-h1);
+  font-weight: var(--weight-bold);
+  line-height: var(--lh-h1);
+  letter-spacing: var(--tracking-snug);
+}
+.t-h2 {
+  font-family: var(--font-sans);
+  font-size: var(--fs-h2);
+  font-weight: var(--weight-bold);
+  line-height: var(--lh-h2);
+}
+.t-h3 {
+  font-family: var(--font-sans);
+  font-size: var(--fs-h3);
+  font-weight: var(--weight-bold);
+  line-height: var(--lh-h3);
+}
+.t-h4 {
+  font-family: var(--font-sans);
+  font-size: var(--fs-h4);
+  font-weight: var(--weight-bold);
+  line-height: var(--lh-h4);
+}
+.t-body {
+  font-family: var(--font-sans);
+  font-size: var(--fs-body);
+  font-weight: var(--weight-medium);
+  line-height: var(--lh-body);
+}
+.t-body-sm {
+  font-family: var(--font-sans);
+  font-size: var(--fs-body-sm);
+  font-weight: var(--weight-medium);
+  line-height: var(--lh-body);
+}
+.t-caption {
+  font-family: var(--font-sans);
+  font-size: var(--fs-caption);
+  font-weight: var(--weight-bold);
+  line-height: var(--lh-caption);
+  letter-spacing: var(--tracking-wider);
+  text-transform: uppercase;
+}
+.t-label {
+  font-family: var(--font-sans);
+  font-size: var(--fs-caption);
+  font-weight: var(--weight-bold);
+  letter-spacing: var(--tracking-wider);
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+/* ===== PRIMITIVE CLASSES ===== */
+.bg-canary   { background: var(--azul-canary); color: var(--branco); }
+.bg-medio    { background: var(--azul-medio);  color: var(--branco); }
+.bg-claro    { background: var(--azul-claro);  color: var(--branco); }
+.bg-verde    { background: var(--verde);       color: var(--azul-canary); }
+.bg-branco   { background: var(--branco);      color: var(--azul-canary); }
+
+.txt-canary  { color: var(--azul-canary); }
+.txt-medio   { color: var(--azul-medio); }
+.txt-claro   { color: var(--azul-claro); }
+.txt-verde   { color: var(--verde); }
+.txt-branco  { color: var(--branco); }
+
+/* Verde background highlight on text (sparingly, 2-4 words) */
+.hl-verde {
+  background: var(--verde);
+  color: var(--azul-canary);
+  padding: 0.05em 0.25em;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+
+/* Arrow bullet list (brand bullet = "→") */
+.bullets-arrow { list-style: none; padding: 0; margin: 0; }
+.bullets-arrow > li {
+  position: relative;
+  padding-left: 1.75em;
+  margin-bottom: 0.5em;
+}
+.bullets-arrow > li::before {
+  content: '→';
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: var(--azul-canary);
+  font-weight: var(--weight-bold);
+}
+.bg-canary .bullets-arrow > li::before,
+.bg-medio  .bullets-arrow > li::before { color: var(--verde); }

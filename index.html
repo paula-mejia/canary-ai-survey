@@ -1,0 +1,884 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Canary AI Adoption Survey</title>
+<link rel="stylesheet" href="colors_and_type.css">
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    background: var(--azul-canary);
+    color: var(--branco);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  a { color: inherit; text-decoration: none; }
+  img { display: block; max-width: 100%; }
+
+  /* ===== Header ===== */
+  .nav {
+    position: sticky; top: 0; z-index: 50;
+    background: rgba(0,27,76,0.92);
+    backdrop-filter: blur(6px);
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+  .nav-inner {
+    max-width: 1280px; margin: 0 auto;
+    padding: 20px 48px;
+    display: flex; align-items: center; gap: 36px;
+  }
+  .nav-link {
+    font-size: 11px; font-weight: 700;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    color: rgba(255,255,255,0.7);
+    transition: color 220ms var(--ease-out);
+  }
+  .nav-link:hover { color: var(--verde); }
+  .nav-pill {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 8px 14px;
+    border: 1px solid rgba(255,255,255,0.20);
+    border-radius: 999px;
+    font-size: 11px; font-weight: 700;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    color: rgba(255,255,255,0.85);
+  }
+  .nav-pill .dot {
+    width: 7px; height: 7px; border-radius: 50%;
+    background: var(--verde);
+    box-shadow: 0 0 0 0 rgba(182,226,21,0.6);
+    animation: pulse 2.4s infinite;
+  }
+  @keyframes pulse {
+    0%   { box-shadow: 0 0 0 0 rgba(182,226,21,0.5); }
+    70%  { box-shadow: 0 0 0 10px rgba(182,226,21,0); }
+    100% { box-shadow: 0 0 0 0 rgba(182,226,21,0); }
+  }
+
+  /* ===== Hero ===== */
+  .hero {
+    position: relative; overflow: hidden;
+    padding: 112px 48px 96px;
+  }
+  .hero-graf-1 {
+    position: absolute; top: 0; right: 0;
+    width: 52%; height: 100%;
+    background: var(--azul-medio);
+    clip-path: polygon(38% 0, 100% 0, 100% 100%, 52% 96%, 0 48%);
+    z-index: 0;
+  }
+  .hero-graf-2 {
+    position: absolute; top: 60%; right: 10%;
+    width: 18%; aspect-ratio: 1;
+    background: var(--azul-claro);
+    clip-path: polygon(0 18%, 86% 0, 100% 70%, 30% 100%);
+    opacity: 0.85;
+    z-index: 1;
+  }
+  .hero-symbol {
+    position: absolute; top: 14%; right: 6%;
+    width: 360px; height: 360px;
+    opacity: 0.18;
+    z-index: 1;
+  }
+  .hero-symbol img { width: 100%; height: 100%; object-fit: contain; }
+
+  .hero-inner {
+    position: relative; z-index: 2;
+    max-width: 1280px; margin: 0 auto;
+  }
+  .eyebrow {
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 7px 14px;
+    background: var(--verde); color: var(--azul-canary);
+    font-size: 10px; font-weight: 700;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    border-radius: 3px;
+  }
+  .eyebrow::before {
+    content: ""; width: 5px; height: 5px; border-radius: 50%;
+    background: var(--azul-canary);
+  }
+  .hero h1 {
+    font-size: 92px; font-weight: 700;
+    line-height: 0.96; letter-spacing: -0.025em;
+    text-transform: uppercase;
+    margin: 28px 0 0;
+    max-width: 980px;
+  }
+  .hero h1 .accent {
+    color: var(--azul-claro);
+    display: inline-block;
+  }
+  .hero-lede {
+    font-family: var(--font-text);
+    font-size: 21px; font-weight: 400;
+    line-height: 1.5; max-width: 620px;
+    margin: 32px 0 0;
+    color: rgba(255,255,255,0.85);
+  }
+  .hero-meta {
+    margin-top: 48px;
+    display: grid; grid-template-columns: repeat(4, max-content);
+    gap: 56px;
+    border-top: 1px solid rgba(255,255,255,0.15);
+    padding-top: 28px;
+    max-width: 880px;
+  }
+  .meta-num {
+    font-size: 40px; font-weight: 700;
+    line-height: 1; letter-spacing: -0.02em;
+  }
+  .meta-num.verde { color: var(--verde); }
+  .meta-num.claro { color: var(--azul-claro); }
+  .meta-label {
+    font-size: 10px; letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.6);
+    margin-top: 10px; font-weight: 700;
+  }
+
+  /* ===== Generic section ===== */
+  section { position: relative; }
+  .container { max-width: 1280px; margin: 0 auto; padding: 0 48px; }
+
+  /* ===== Intro / About ===== */
+  .about {
+    padding: 96px 48px;
+    background: var(--branco); color: var(--azul-canary);
+    position: relative; overflow: hidden;
+  }
+  .about-graf {
+    position: absolute; top: -10%; left: -8%;
+    width: 280px; height: 280px;
+    background: var(--azul-canary);
+    clip-path: polygon(20% 0, 100% 8%, 88% 100%, 0 70%);
+    opacity: 0.06;
+  }
+  .about-inner {
+    max-width: 1280px; margin: 0 auto;
+    display: grid; grid-template-columns: 1fr 1.4fr;
+    gap: 96px;
+    position: relative; z-index: 2;
+  }
+  .about .label {
+    font-size: 11px; font-weight: 700;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--azul-claro);
+  }
+  .about h2 {
+    font-size: 44px; font-weight: 700;
+    line-height: 1.05; letter-spacing: -0.02em;
+    text-transform: uppercase;
+    margin: 16px 0 0;
+  }
+  .about-body {
+    font-family: var(--font-text);
+    font-size: 18px; line-height: 1.6;
+    color: var(--azul-canary);
+    font-weight: 400;
+  }
+  .about-body p { margin: 0 0 20px; }
+  .about-body p:last-child { margin-bottom: 0; }
+  .about-body strong { font-weight: 700; }
+
+  /* ===== Surveys ===== */
+  .surveys {
+    padding: 112px 48px 96px;
+    background: var(--azul-canary); color: var(--branco);
+    position: relative; overflow: hidden;
+  }
+  .surveys::before {
+    content: "";
+    position: absolute; right: -8%; top: -10%;
+    width: 540px; height: 540px;
+    background: var(--azul-medio);
+    clip-path: polygon(28% 0, 100% 18%, 86% 100%, 0 70%);
+    opacity: 0.55;
+  }
+  .surveys-head {
+    max-width: 1280px; margin: 0 auto 56px;
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 64px; align-items: end;
+    position: relative; z-index: 2;
+  }
+  .surveys-head h2 {
+    font-size: 56px; font-weight: 700;
+    line-height: 1.0; letter-spacing: -0.025em;
+    text-transform: uppercase;
+    margin: 14px 0 0;
+    max-width: 640px;
+  }
+  .surveys-head .blurb {
+    font-family: var(--font-text);
+    font-size: 17px; line-height: 1.6;
+    color: rgba(255,255,255,0.78);
+    font-weight: 400;
+    max-width: 460px;
+  }
+  .perk-strip {
+    max-width: 1280px; margin: 0 auto 40px;
+    display: flex; align-items: center;
+    gap: 16px; flex-wrap: wrap;
+    padding: 18px 24px;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 10px;
+    position: relative; z-index: 2;
+  }
+  .perk-strip .ico {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 36px; height: 36px;
+    background: var(--verde);
+    color: var(--azul-canary);
+    border-radius: 6px;
+    font-weight: 700; font-size: 18px;
+  }
+  .perk-strip .text {
+    font-family: var(--font-text);
+    font-size: 15px; color: rgba(255,255,255,0.9);
+    flex: 1; line-height: 1.45;
+  }
+  .perk-strip .text strong { color: var(--verde); font-weight: 700; }
+  .perk-strip .meta {
+    font-size: 10px; font-weight: 700;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    color: rgba(255,255,255,0.55);
+  }
+
+  .survey-grid {
+    max-width: 1280px; margin: 0 auto;
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    position: relative; z-index: 2;
+  }
+
+  .card {
+    position: relative;
+    display: flex; flex-direction: column;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 12px;
+    padding: 22px 22px 20px;
+    color: var(--branco);
+    overflow: hidden;
+    transition: transform 220ms var(--ease-out),
+                background 220ms var(--ease-out),
+                border-color 220ms var(--ease-out);
+    min-height: 320px;
+  }
+  .card:hover {
+    transform: translateY(-4px);
+    background: rgba(255,255,255,0.08);
+    border-color: rgba(182,226,21,0.4);
+  }
+  .card-graf {
+    position: absolute; top: -30%; right: -20%;
+    width: 260px; height: 260px;
+    clip-path: polygon(28% 0, 100% 18%, 86% 100%, 0 70%);
+    opacity: 0.2;
+    transition: opacity 220ms var(--ease-out);
+  }
+  .card:hover .card-graf { opacity: 0.35; }
+  .card.c-claro  .card-graf { background: var(--azul-claro); }
+  .card.c-verde  .card-graf { background: var(--verde); }
+  .card.c-medio  .card-graf { background: var(--azul-medio); }
+  .card.c-mix    .card-graf { background: var(--azul-claro); }
+
+  .card-num {
+    position: relative; z-index: 2;
+    font-size: 10px; font-weight: 700;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    color: rgba(255,255,255,0.5);
+    margin-bottom: 16px;
+    display: flex; justify-content: space-between; align-items: center;
+    gap: 8px;
+  }
+  .card-num .role-tag {
+    color: var(--verde);
+  }
+  .card-icon {
+    position: relative; z-index: 2;
+    width: 52px; height: 52px;
+    margin-bottom: 16px;
+    background: var(--verde);
+    color: var(--azul-canary);
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 4px 12px rgba(182,226,21,0.25);
+  }
+  .card.c-claro .card-icon { background: var(--azul-claro); color: var(--branco); box-shadow: 0 4px 12px rgba(0,140,255,0.30); }
+  .card.c-mix   .card-icon { background: var(--branco); color: var(--azul-canary); box-shadow: 0 4px 12px rgba(255,255,255,0.18); }
+  .card.c-medio .card-icon { background: var(--verde); color: var(--azul-canary); box-shadow: 0 4px 12px rgba(182,226,21,0.25); }
+  .card-icon svg { width: 26px; height: 26px; display: block; }
+
+  .card h3 {
+    position: relative; z-index: 2;
+    font-size: 20px; font-weight: 700;
+    line-height: 1.1; letter-spacing: -0.01em;
+    text-transform: uppercase;
+    margin: 0 0 10px;
+  }
+  .card-sub {
+    position: relative; z-index: 2;
+    font-family: var(--font-text);
+    font-size: 13px; line-height: 1.5;
+    color: rgba(255,255,255,0.75);
+    margin: 0 0 20px;
+    font-weight: 400;
+  }
+  .card-spacer { flex: 1; position: relative; z-index: 2; }
+  .card-cta {
+    position: relative; z-index: 2;
+    display: flex; align-items: center; justify-content: space-between;
+    padding-top: 14px;
+    border-top: 1px solid rgba(255,255,255,0.12);
+  }
+  .card-cta .label {
+    font-size: 10px; font-weight: 700;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--branco);
+  }
+  .card-cta .arrow {
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    background: var(--azul-claro);
+    color: var(--branco);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px; font-weight: 700;
+    transition: background 220ms var(--ease-out), transform 220ms var(--ease-out);
+  }
+  .card:hover .card-cta .arrow {
+    background: var(--verde);
+    color: var(--azul-canary);
+    transform: translateX(4px);
+  }
+  .card-link {
+    position: relative; z-index: 2;
+    display: block;
+    font-family: var(--font-mono, ui-monospace, monospace);
+    font-size: 10px;
+    color: rgba(255,255,255,0.4);
+    margin-top: 10px;
+    letter-spacing: 0.02em;
+    word-break: break-all;
+  }
+
+  /* ===== Moment / quote section ===== */
+  .moment {
+    background: var(--branco); color: var(--azul-canary);
+    padding: 112px 48px;
+    position: relative; overflow: hidden;
+  }
+  .moment-graf-a {
+    position: absolute; bottom: 0; left: 0;
+    width: 320px; height: 240px;
+    background: var(--verde);
+    clip-path: polygon(0 30%, 80% 0, 100% 70%, 22% 100%);
+    opacity: 0.4;
+  }
+  .moment-graf-b {
+    position: absolute; top: 0; right: 0;
+    width: 380px; height: 280px;
+    background: var(--azul-canary);
+    clip-path: polygon(20% 0, 100% 0, 100% 70%, 0 100%);
+    opacity: 0.06;
+  }
+  .moment-inner {
+    position: relative; z-index: 2;
+    max-width: 1100px; margin: 0 auto;
+    text-align: left;
+  }
+  .moment .label {
+    font-size: 11px; font-weight: 700;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--azul-claro);
+  }
+  .moment h2 {
+    font-family: var(--font-sans);
+    font-size: 56px; font-weight: 500;
+    line-height: 1.15; letter-spacing: -0.02em;
+    margin: 24px 0 0;
+    max-width: 1000px;
+  }
+  .moment h2 em {
+    font-style: italic;
+    font-weight: 400;
+    color: var(--azul-medio);
+  }
+  .moment-bottom {
+    margin-top: 64px;
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 48px;
+    border-top: 1px solid var(--border);
+    padding-top: 40px;
+  }
+  .moment-bottom .item .num {
+    font-size: 11px; font-weight: 700;
+    letter-spacing: 0.14em;
+    color: var(--azul-claro);
+  }
+  .moment-bottom .item h4 {
+    font-size: 18px; font-weight: 700;
+    margin: 12px 0 8px; line-height: 1.25;
+    text-transform: uppercase;
+    letter-spacing: -0.005em;
+  }
+  .moment-bottom .item p {
+    font-family: var(--font-text);
+    font-size: 14px; line-height: 1.55;
+    color: var(--neutral-700);
+    margin: 0; font-weight: 400;
+  }
+
+  /* ===== Spread the word ===== */
+  .spread {
+    background: var(--azul-canary); color: var(--branco);
+    padding: 96px 48px;
+    position: relative; overflow: hidden;
+  }
+  .spread::before {
+    content: "";
+    position: absolute; left: -10%; bottom: -30%;
+    width: 60%; height: 120%;
+    background: var(--azul-medio);
+    clip-path: polygon(0 30%, 80% 0, 100% 70%, 22% 100%);
+    opacity: 0.5;
+  }
+  .spread-inner {
+    position: relative; z-index: 2;
+    max-width: 1280px; margin: 0 auto;
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 80px; align-items: center;
+  }
+  .spread h2 {
+    font-size: 48px; font-weight: 700;
+    line-height: 1.05; letter-spacing: -0.02em;
+    text-transform: uppercase;
+    margin: 14px 0 24px;
+  }
+  .spread p {
+    font-family: var(--font-text);
+    font-size: 17px; line-height: 1.6;
+    color: rgba(255,255,255,0.85);
+    margin: 0 0 32px; font-weight: 400;
+    max-width: 520px;
+  }
+  .spread-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 10px;
+    border: 0; cursor: pointer;
+    font-family: inherit;
+    font-size: 11px; font-weight: 700;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    padding: 14px 22px;
+    border-radius: 6px;
+    transition: background 220ms var(--ease-out),
+                color 220ms var(--ease-out),
+                transform 150ms var(--ease-out);
+  }
+  .btn-primary {
+    background: var(--verde); color: var(--azul-canary);
+  }
+  .btn-primary:hover { background: #A0C912; }
+  .btn-primary:active { transform: translateY(1px); }
+  .btn-ghost {
+    background: transparent; color: var(--branco);
+    border: 1.5px solid rgba(255,255,255,0.30);
+    padding: 12.5px 20px;
+  }
+  .btn-ghost:hover {
+    background: rgba(0,140,255,0.10);
+    border-color: var(--azul-claro);
+    color: var(--branco);
+  }
+
+  .spread-visual {
+    position: relative;
+    aspect-ratio: 0.88;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .spread-visual .map {
+    position: relative; z-index: 2;
+    width: 100%; height: 100%;
+    object-fit: contain;
+    filter: drop-shadow(0 8px 24px rgba(0,140,255,0.18));
+  }
+  .spread-visual .pin {
+    position: absolute;
+    width: 12px; height: 12px; border-radius: 50%;
+    z-index: 4;
+    transform: translate(-50%, -50%);
+  }
+  .spread-visual .pin::after {
+    content: "";
+    position: absolute; inset: -6px;
+    border-radius: 50%;
+    border: 1px solid currentColor;
+    opacity: 0.4;
+    animation: ping 2.4s var(--ease-out) infinite;
+  }
+  @keyframes ping {
+    0%   { transform: scale(0.6); opacity: 0.7; }
+    80%  { transform: scale(1.8); opacity: 0; }
+    100% { transform: scale(1.8); opacity: 0; }
+  }
+  .spread-visual .pin.verde { background: var(--verde); color: var(--verde); box-shadow: 0 0 0 4px rgba(182,226,21,0.18); }
+  .spread-visual .pin.claro { background: var(--azul-claro); color: var(--azul-claro); box-shadow: 0 0 0 4px rgba(0,140,255,0.22); }
+  .spread-visual .pin .label {
+    position: absolute;
+    left: 18px; top: 50%; transform: translateY(-50%);
+    white-space: nowrap;
+    font-size: 10px; font-weight: 700;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--branco);
+    background: rgba(0,27,76,0.85);
+    padding: 4px 8px; border-radius: 3px;
+    border: 1px solid rgba(255,255,255,0.12);
+  }
+
+  /* ===== FAQ / quick info strip ===== */
+  .info {
+    background: var(--branco); color: var(--azul-canary);
+    padding: 80px 48px;
+  }
+  .info-inner {
+    max-width: 1280px; margin: 0 auto;
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 40px;
+  }
+  .info-item .num {
+    font-size: 11px; font-weight: 700;
+    letter-spacing: 0.14em;
+    color: var(--azul-claro);
+    margin-bottom: 16px;
+  }
+  .info-item h4 {
+    font-size: 17px; font-weight: 700;
+    line-height: 1.25;
+    text-transform: uppercase;
+    margin: 0 0 10px;
+  }
+  .info-item p {
+    font-family: var(--font-text);
+    font-size: 14px; line-height: 1.55;
+    color: var(--neutral-700);
+    margin: 0; font-weight: 400;
+  }
+
+  /* ===== Footer ===== */
+  .footer {
+    background: var(--azul-canary); color: var(--branco);
+    padding: 22px 48px 16px;
+    border-top: 1px solid rgba(255,255,255,0.08);
+    position: relative; overflow: hidden;
+  }
+  .footer .symbol-bg {
+    position: absolute; bottom: -40%; right: -5%;
+    width: 35%; height: 140%; opacity: 0.08;
+    z-index: 0;
+  }
+  .footer .symbol-bg img { width: 100%; height: 100%; }
+  .footer-inner {
+    max-width: 1280px; margin: 0 auto;
+    position: relative; z-index: 2;
+    display: grid; grid-template-columns: 1fr;
+    gap: 24px; margin-bottom: 16px;
+  }
+  .footer .descr {
+    font-family: var(--font-text);
+    font-size: 14px; line-height: 1.6;
+    opacity: 0.75; max-width: 360px;
+    margin-top: 20px; font-weight: 400;
+  }
+  .footer .col-title {
+    font-size: 10px; font-weight: 700;
+    letter-spacing: 0.14em; color: var(--verde);
+    text-transform: uppercase; margin-bottom: 18px;
+  }
+  .footer ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 10px; }
+  .footer li { font-size: 14px; color: rgba(255,255,255,0.8); cursor: pointer; }
+  .footer-bottom {
+    max-width: 1280px; margin: 0 auto;
+    position: relative; z-index: 2;
+    display: flex; justify-content: space-between; align-items: center;
+    border-top: 1px solid rgba(255,255,255,0.15);
+    padding-top: 12px;
+    font-size: 11px; letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.5);
+  }
+
+  /* ===== Responsive ===== */
+  @media (max-width: 960px) {
+    .hero { padding: 88px 24px 72px; }
+    .hero h1 { font-size: 56px; }
+    .hero-symbol { display: none; }
+    .hero-graf-1 { width: 70%; opacity: 0.6; }
+    .hero-meta { grid-template-columns: repeat(2, 1fr); gap: 28px; max-width: none; }
+
+    .nav-inner { padding: 16px 24px; gap: 18px; }
+    .nav-link.hide-sm { display: none; }
+
+    .about, .surveys, .moment, .spread, .info { padding-left: 24px; padding-right: 24px; }
+    .about-inner { grid-template-columns: 1fr; gap: 32px; }
+    .about h2 { font-size: 32px; }
+    .surveys-head { grid-template-columns: 1fr; gap: 24px; }
+    .surveys-head h2 { font-size: 36px; }
+    .survey-grid { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 1100px) and (min-width: 961px) {
+    .survey-grid { grid-template-columns: repeat(2, 1fr); }
+    .moment h2 { font-size: 32px; }
+    .moment-bottom { grid-template-columns: 1fr; gap: 28px; }
+    .spread-inner { grid-template-columns: 1fr; gap: 40px; }
+    .spread h2 { font-size: 32px; }
+    .spread-visual { display: none; }
+    .info-inner { grid-template-columns: 1fr 1fr; gap: 28px; }
+    .footer-inner { grid-template-columns: 1fr; gap: 32px; }
+    .footer-bottom { flex-direction: column; gap: 12px; }
+  }
+</style>
+</head>
+<body data-screen-label="AI Adoption Survey Landing">
+
+<!-- ====== Nav ====== -->
+<header class="nav">
+  <div class="nav-inner" style="height: 59px">
+    <a href="#"><img src="assets/logos/wordmark-branco.svg" alt="Canary" style="height:56px;"></a>
+    <span style="flex:1"></span>
+    <a class="nav-link hide-sm" href="#about">About</a>
+    <a class="nav-link hide-sm" href="#surveys">Surveys</a>
+    <a class="nav-link hide-sm" href="#moment">Why now</a>
+    <span class="nav-pill"><span class="dot"></span>Open · May 2026</span>
+  </div>
+</header>
+
+<!-- ====== Hero ====== -->
+<section class="hero" data-screen-label="Hero">
+  <div class="hero-graf-1"></div>
+  <div class="hero-graf-2"></div>
+
+  <div class="hero-inner">
+    <span class="eyebrow">Canary · Open Initiative · LATAM</span>
+    <h1>
+      AI Adoption<br>
+      Survey <span class="accent">2026</span>
+    </h1>
+
+  </div>
+</section>
+
+<!-- ====== About ====== -->
+<section class="about" id="about" data-screen-label="About">
+  <div class="about-graf"></div>
+  <div class="about-inner">
+    <div>
+      <span class="label">→ The initiative</span>
+      <h2>Mapping<br>a moment<br>in motion.</h2>
+    </div>
+    <div class="about-body">
+      <p>In the spirit of contributing to this collective learning, we're launching the <strong>Canary AI Adoption Survey</strong>, an open initiative for VC-backed startups across the ecosystem.</p>
+      <p>The goal is to map how teams are adapting their work, their processes, and the tools they are using to navigate this new reality and bring more efficiency to their operations.</p>
+      <p>Because AI adoption looks different depending on the function leading it, we've designed <span class="hl-verde">four tailored versions</span> of the survey. We'd love to count on your participation by filling out the form designed for your role, and on your help in spreading the word to peers and leaders adapting to AI within their own functions.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ====== Surveys ====== -->
+<section class="surveys" id="surveys" data-screen-label="Surveys">
+  <div class="surveys-head">
+    <div>
+      <span class="eyebrow" style="background:rgba(255,255,255,0.08); color:var(--branco); border:1px solid rgba(255,255,255,0.15);">Pick your role</span>
+      <h2>Four surveys.<br>One per function.</h2>
+    </div>
+    <p class="blurb">
+      AI adoption looks different depending on the function leading it. Each version takes about 7 minutes and is designed around the questions that matter most for your day-to-day. Choose the one that fits.
+    </p>
+  </div>
+
+  <div class="perk-strip">
+    <span class="ico">→</span>
+    <div class="text"><strong>Respondents get early access to the full Canary AI Adoption Report</strong> before it goes public.</div>
+  </div>
+
+  <div class="survey-grid">
+
+    <!-- Card 1: CEO -->
+    <a class="card c-claro" href="https://tinyurl.com/ai-adoption-ceo" target="_blank" rel="noopener">
+      <div class="card-graf"></div>
+      <div class="card-num"><span>01 / 04</span><span class="role-tag">↗ Leadership</span></div>
+      <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="3.2"/><path d="M5 21c0-3.5 3.1-6 7-6s7 2.5 7 6"/><path d="M3 11l2 2 4-4"/></svg></div>
+      <h3>CEOs &amp;<br>Founders</h3>
+      <p class="card-sub">Strategy, org design, hiring, and the cultural shift around AI inside your company.</p>
+      <div class="card-spacer"></div>
+      <div class="card-cta">
+        <span class="label">Open survey</span>
+        <span class="arrow">→</span>
+      </div>
+      <span class="card-link">tinyurl.com/ai-adoption-ceo</span>
+    </a>
+
+    <!-- Card 2: CTO -->
+    <a class="card c-verde" href="https://tinyurl.com/ai-adoption-cto" target="_blank" rel="noopener">
+      <div class="card-graf"></div>
+      <div class="card-num"><span>02 / 04</span><span class="role-tag">↗ Engineering</span></div>
+      <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="8 6 2 12 8 18"/><polyline points="16 6 22 12 16 18"/><line x1="14" y1="4" x2="10" y2="20"/></svg></div>
+      <h3>CTOs &amp; Head<br>of Engineering</h3>
+      <p class="card-sub">Dev tooling, agentic workflows, infra, model choice, and engineering throughput.</p>
+      <div class="card-spacer"></div>
+      <div class="card-cta">
+        <span class="label">Open survey</span>
+        <span class="arrow">→</span>
+      </div>
+      <span class="card-link">tinyurl.com/ai-adoption-cto</span>
+    </a>
+
+    <!-- Card 3: GTM -->
+    <a class="card c-mix" href="https://tinyurl.com/ai-adoption-growth" target="_blank" rel="noopener">
+      <div class="card-graf"></div>
+      <div class="card-num"><span>03 / 04</span><span class="role-tag">↗ Go-to-market</span></div>
+      <div class="card-icon"><svg viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="1" stroke-linejoin="round"><polygon points="12 2 14.6 8.6 21.6 9.2 16.2 13.8 17.9 20.7 12 17 6.1 20.7 7.8 13.8 2.4 9.2 9.4 8.6"/></svg></div>
+      <h3>CMOs &amp; Head<br>of Sales</h3>
+      <p class="card-sub">Content velocity, prospecting stack, AI in the funnel, and sales enablement.</p>
+      <div class="card-spacer"></div>
+      <div class="card-cta">
+        <span class="label">Open survey</span>
+        <span class="arrow">→</span>
+      </div>
+      <span class="card-link">tinyurl.com/ai-adoption-growth</span>
+    </a>
+
+    <!-- Card 4: FinOps -->
+    <a class="card c-medio" href="https://tinyurl.com/ai-adoption-finops" target="_blank" rel="noopener">
+      <div class="card-graf"></div>
+      <div class="card-num"><span>04 / 04</span><span class="role-tag">↗ Finance &amp; Ops</span></div>
+      <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l6-6 4 4 8-8"/><polyline points="15 7 21 7 21 13"/></svg></div>
+      <h3>CFOs &amp;<br>COOs</h3>
+      <p class="card-sub">AI spend, productivity gains, back-office automation, and operating model shifts.</p>
+      <div class="card-spacer"></div>
+      <div class="card-cta">
+        <span class="label">Open survey</span>
+        <span class="arrow">→</span>
+      </div>
+      <span class="card-link">tinyurl.com/ai-adoption-finops</span>
+    </a>
+
+  </div>
+</section>
+
+<!-- ====== Moment ====== -->
+<section class="moment" id="moment" data-screen-label="Why now">
+  <div class="moment-graf-a"></div>
+  <div class="moment-graf-b"></div>
+  <div class="moment-inner">
+    <span class="label">→ Why now</span>
+    <h2 style="font-size: 34px">
+      2026 is the year the playbook got rewritten in <em>real time.</em> New tools every week, new roles every month, new ways of working every day. The moment to capture it is now.
+    </h2>
+  </div>
+</section>
+
+<!-- ====== Spread the word ====== -->
+<section class="spread" data-screen-label="Spread the word">
+  <div class="spread-inner">
+    <div>
+      <span class="eyebrow" style="background:var(--azul-claro); color:var(--branco);">Spread the word</span>
+      <h2>Help us<br>reach the<br>full ecosystem.</h2>
+      <p>Forward the surveys to peers and leaders adapting to AI within their own functions. Every additional response sharpens the picture for everyone in the region.</p>
+      <div class="spread-actions">
+        <button class="btn btn-primary" id="copy-all">Copy all four links →</button>
+        <a class="btn btn-ghost" href="mailto:?subject=Canary%20%E2%80%93%20AI%20Adoption%20Survey&body=Hi!%20Canary%20is%20running%20a%20survey%20on%20AI%20adoption%20across%20startups%2C%20with%20a%20tailored%20version%20for%20each%20role.%20It%20only%20takes%20about%207%20minutes.%0A%0AFill%20it%20out%20so%20we%20can%20get%20early%20access%20to%20the%20report.%0A%0ALinks%20by%20role%3A%0A%E2%80%A2%20CEO%2FFounder%3A%20https%3A%2F%2Ftinyurl.com%2Fai-adoption-ceo%0A%E2%80%A2%20CTO%3A%20https%3A%2F%2Ftinyurl.com%2Fai-adoption-cto%0A%E2%80%A2%20CMO%2FSales%3A%20https%3A%2F%2Ftinyurl.com%2Fai-adoption-growth%0A%E2%80%A2%20CFO%2FCOO%3A%20https%3A%2F%2Ftinyurl.com%2Fai-adoption-finops%0A%0AThanks!">Share via email</a>
+      </div>
+    </div>
+    <div class="spread-visual" aria-hidden="true">
+      <img class="map" src="assets/latam-dots.png" alt="">
+      <span class="pin verde" style="left: 21.8%; top: 15.3%;"></span>
+      <span class="pin claro" style="left: 52.3%; top: 31.8%;"></span>
+      <span class="pin verde" style="left: 52.0%; top: 47.6%;"></span>
+      <span class="pin claro" style="left: 84.0%; top: 61.9%;"></span>
+      <span class="pin verde" style="left: 85.3%; top: 58.7%;"></span>
+      <span class="pin claro" style="left: 71.5%; top: 76.0%;"></span>
+      <span class="pin verde" style="left: 56.6%; top: 74.6%;"></span>
+    </div>
+  </div>
+</section>
+
+<!-- ====== Info strip ====== -->
+<section class="info" data-screen-label="Quick info">
+  <div class="info-inner">
+    <div class="info-item">
+      <div class="num">01 →</div>
+      <h4>Who can answer</h4>
+      <p>Founders, leaders and operators at VC-backed startups across Latin America. One person per role, per company.</p>
+    </div>
+    <div class="info-item">
+      <div class="num">02 →</div>
+      <h4>How long it takes</h4>
+      <p>Roughly 7–10 minutes per survey. You can save and resume.</p>
+    </div>
+    <div class="info-item">
+      <div class="num">03 →</div>
+      <h4>What you get back</h4>
+      <p>Early access to the full Canary AI Adoption Report ahead of public release, with benchmarks per function.</p>
+    </div>
+    <div class="info-item">
+      <div class="num">04 →</div>
+      <h4>How we use it</h4>
+      <p>Anonymized, aggregated. We surface patterns, not individuals. No company names attached to specific answers.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ====== Footer ====== -->
+<footer class="footer" data-screen-label="Footer">
+  <div class="symbol-bg"><img src="assets/logos/symbol-branco-claro.svg" alt=""></div>
+  <div class="footer-inner">
+    <div>
+      <img src="assets/logos/wordmark-branco.svg" alt="Canary" style="height: 22px;">
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 Canary · São Paulo, Brazil</span>
+  </div>
+</footer>
+
+<script>
+  // Copy-all-links button
+  (function() {
+    var btn = document.getElementById('copy-all');
+    if (!btn) return;
+    var text = [
+      'Hi! Canary is running a survey on AI adoption across startups, with a tailored version for each role. It only takes about 7 minutes.',
+      '',
+      'Fill it out so we can get early access to the report.',
+      '',
+      'Links by role:',
+      '• CEO/Founder: https://tinyurl.com/ai-adoption-ceo',
+      '• CTO: https://tinyurl.com/ai-adoption-cto',
+      '• CMO/Sales: https://tinyurl.com/ai-adoption-growth',
+      '• CFO/COO: https://tinyurl.com/ai-adoption-finops',
+      '',
+      'Thanks!'
+    ].join('\n');
+    var original = btn.textContent;
+    btn.addEventListener('click', function(e) {
+      e.preventDefault();
+      try {
+        navigator.clipboard.writeText(text).then(function() {
+          btn.textContent = 'Copied ✓';
+          setTimeout(function() { btn.textContent = original; }, 1800);
+        });
+      } catch (err) {
+        btn.textContent = 'Press ⌘C';
+        setTimeout(function() { btn.textContent = original; }, 1800);
+      }
+    });
+  })();
+</script>
+
+</body>
+</html>
