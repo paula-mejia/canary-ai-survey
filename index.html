@@ -4,6 +4,17 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Canary AI Adoption Survey</title>
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<meta name="description" content="How is LATAM actually using AI? Four tailored surveys for founders and operators at VC-backed startups. Takes about 7 minutes. Respondents get early access to the full report.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Canary AI Adoption Survey 2026">
+<meta property="og:description" content="How is LATAM actually using AI? Four tailored surveys for founders and operators at VC-backed startups. Respondents get early access to the full report.">
+<meta property="og:image" content="https://latam-ai-adoption-survey.netlify.app/assets/og-image.png">
+<meta property="og:url" content="https://latam-ai-adoption-survey.netlify.app/">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Canary AI Adoption Survey 2026">
+<meta name="twitter:description" content="How is LATAM actually using AI? Four tailored surveys for founders and operators. Takes ~7 min.">
+<meta name="twitter:image" content="https://latam-ai-adoption-survey.netlify.app/assets/og-image.png">
 <link rel="stylesheet" href="colors_and_type.css">
 <style>
   *, *::before, *::after { box-sizing: border-box; }
@@ -629,14 +640,19 @@
     .surveys-head { grid-template-columns: 1fr; gap: 24px; }
     .surveys-head h2 { font-size: 36px; }
     .survey-grid { grid-template-columns: 1fr; }
+    .spread-inner { grid-template-columns: 1fr; gap: 40px; }
+    .spread h2 { font-size: 36px; }
+    .spread-visual { max-height: 360px; }
+    .info-inner { grid-template-columns: 1fr; gap: 28px; }
+    .footer-bottom { flex-direction: column; gap: 8px; }
   }
   @media (max-width: 1100px) and (min-width: 961px) {
     .survey-grid { grid-template-columns: repeat(2, 1fr); }
     .moment h2 { font-size: 32px; }
     .moment-bottom { grid-template-columns: 1fr; gap: 28px; }
-    .spread-inner { grid-template-columns: 1fr; gap: 40px; }
+    .spread-inner { grid-template-columns: 1fr 1fr; gap: 40px; }
     .spread h2 { font-size: 32px; }
-    .spread-visual { display: none; }
+    .spread-visual { max-height: 400px; }
     .info-inner { grid-template-columns: 1fr 1fr; gap: 28px; }
     .footer-inner { grid-template-columns: 1fr; gap: 32px; }
     .footer-bottom { flex-direction: column; gap: 12px; }
@@ -790,8 +806,8 @@
       <h2>Help us<br>reach the<br>full ecosystem.</h2>
       <p>Forward the surveys to peers and leaders adapting to AI within their own functions. Every additional response sharpens the picture for everyone in the region.</p>
       <div class="spread-actions">
-        <button class="btn btn-primary" id="copy-all">Copy all four links →</button>
-        <a class="btn btn-ghost" href="mailto:?subject=Canary%20%E2%80%93%20AI%20Adoption%20Survey&body=Hi!%20Canary%20is%20running%20a%20survey%20on%20AI%20adoption%20across%20startups%2C%20with%20a%20tailored%20version%20for%20each%20role.%20It%20only%20takes%20about%207%20minutes.%0A%0AFill%20it%20out%20so%20we%20can%20get%20early%20access%20to%20the%20report.%0A%0ALinks%20by%20role%3A%0A%E2%80%A2%20CEO%2FFounder%3A%20https%3A%2F%2Ftinyurl.com%2Fai-adoption-ceo%0A%E2%80%A2%20CTO%3A%20https%3A%2F%2Ftinyurl.com%2Fai-adoption-cto%0A%E2%80%A2%20CMO%2FSales%3A%20https%3A%2F%2Ftinyurl.com%2Fai-adoption-growth%0A%E2%80%A2%20CFO%2FCOO%3A%20https%3A%2F%2Ftinyurl.com%2Fai-adoption-finops%0A%0AThanks!">Share via email</a>
+        <button class="btn btn-primary" id="copy-all">Copy message to share →</button>
+        <a class="btn btn-ghost" href="mailto:?subject=Canary%20%E2%80%93%20AI%20Adoption%20Survey&body=Hi!%20Canary%20is%20launching%20the%20AI%20Adoption%20Survey%2C%20mapping%20how%20founders%20and%20teams%20across%20the%20region%20are%20using%20AI%20in%202026.%20There's%20a%20tailored%20version%20for%20each%20role%20and%20it%20only%20takes%20about%207%20minutes.%0A%0AFill%20it%20out%20to%20have%20early%20access%20to%20the%20report.%0A%0APick%20your%20role%20here%3A%20https%3A%2F%2Flatam-ai-adoption-survey.netlify.app%2F%0A%0AThanks!">Share via email</a>
       </div>
     </div>
     <div class="spread-visual" aria-hidden="true">
@@ -852,15 +868,11 @@
     var btn = document.getElementById('copy-all');
     if (!btn) return;
     var text = [
-      'Hi! Canary is running a survey on AI adoption across startups, with a tailored version for each role. It only takes about 7 minutes.',
+      'Hi! Canary is launching the AI Adoption Survey, mapping how founders and teams across the region are using AI in 2026. There\'s a tailored version for each role and it only takes about 7 minutes.',
       '',
-      'Fill it out so we can get early access to the report.',
+      'Fill it out to have early access to the report.',
       '',
-      'Links by role:',
-      '• CEO/Founder: https://tinyurl.com/ai-adoption-ceo',
-      '• CTO: https://tinyurl.com/ai-adoption-cto',
-      '• CMO/Sales: https://tinyurl.com/ai-adoption-growth',
-      '• CFO/COO: https://tinyurl.com/ai-adoption-finops',
+      'Pick your role here: https://latam-ai-adoption-survey.netlify.app/',
       '',
       'Thanks!'
     ].join('\n');
