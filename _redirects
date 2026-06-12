@@ -1,5 +1,6 @@
-# Redirect all traffic to the Vercel app (single source of truth)
-/dashboard  https://latam-ai-adoption-survey.vercel.app/dashboard  302
-/login      https://latam-ai-adoption-survey.vercel.app/login      302
-/survey     https://latam-ai-adoption-survey.vercel.app/survey     302
-/*          https://latam-ai-adoption-survey.vercel.app/:splat     302
+# All traffic goes to the Vercel app (single source of truth).
+# 301 = permanent; ! = force, overriding files that exist in this repo.
+/dashboard  https://latam-ai-adoption-survey.vercel.app/dashboard  301!
+/login      https://latam-ai-adoption-survey.vercel.app/login      301!
+/survey     https://latam-ai-adoption-survey.vercel.app/survey     301!
+/*          https://latam-ai-adoption-survey.vercel.app/survey     301!
