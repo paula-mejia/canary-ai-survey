@@ -1,0 +1,5 @@
+# Static redirect site: nothing to build, publish the repo root.
+# This file overrides any build settings configured in the Netlify UI.
+[build]
+  publish = "."
+  command = "echo 'static redirect site, nothing to build'"
