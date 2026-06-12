@@ -1,0 +1,5 @@
+# Redirect all traffic to the Vercel app (single source of truth)
+/dashboard  https://latam-ai-adoption-survey.vercel.app/dashboard  302
+/login      https://latam-ai-adoption-survey.vercel.app/login      302
+/survey     https://latam-ai-adoption-survey.vercel.app/survey     302
+/*          https://latam-ai-adoption-survey.vercel.app/:splat     302
